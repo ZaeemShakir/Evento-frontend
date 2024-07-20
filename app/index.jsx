@@ -1,13 +1,15 @@
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
+import {StatusBar} from "expo-status-bar"
 import CustomButton from "../components/CustomButton.jsx"
+import {Redirect,router} from "expo-router"
 export default function App() {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View 
-        className="w-full justify-center items-center h-full px-4">
+        className="w-full justify-center items-center min-h-[85vh] px-4">
           <Image
             source={images.logo}
             className="w-[200px] h-[120px]"
@@ -31,9 +33,13 @@ export default function App() {
           <Text className="text-sm font-pregular text-gray-100 text-center mt-7">
             Making event planning easier
           </Text>
-      <CustomButton/>
+      <CustomButton title="continue"
+      handlePress={()=>router.push('/signIn')}
+      containerStyles="w-full mt-7"
+      />
         </View>
       </ScrollView>
+      <StatusBar backgroundColor="#161622" style="light"/>
     </SafeAreaView>
   );
 }
