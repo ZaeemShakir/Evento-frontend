@@ -33,7 +33,7 @@ export default function App() {
           <Text className="text-sm font-pregular text-gray-100 text-center mt-7">
             Making event planning easier
           </Text>
-      <CustomButton title="continue"
+      <CustomButton title="Continue as customers"
       handlePress={()=>router.push('/signIn')}
       containerStyles="w-full mt-7"
       />
