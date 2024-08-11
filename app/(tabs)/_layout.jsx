@@ -33,11 +33,11 @@ const tabLayout = () => {
             borderTopWidth:1,
             borderTopColor:'#232533',
             height:84,
-            borderTopLeftRadius:15,
-            borderTopRightRadius:15
+          
           },
           headerShown:false,
         }}
+      
       >
         <Tabs.Screen
           name="home"
