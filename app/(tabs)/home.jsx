@@ -12,12 +12,13 @@ import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
-import { getAllPosts } from "../../lib/appwrite";
+import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import Card from "../../components/Card";
 const home = () => {
 
   const {data, refetch} =useAppwrite(getAllPosts)
+  const {data:latestPosts} =useAppwrite(getLatestPosts)
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
@@ -58,7 +59,7 @@ const home = () => {
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Jobs
               </Text>
-              <Trending posts={[{ id: 1 }, { id: 2 }] ?? []} />
+              <Trending posts={latestPosts} />
             </View>
           </View>
         )}
