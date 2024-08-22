@@ -15,6 +15,7 @@ import EmptyState from "../../components/EmptyState";
 import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import Card from "../../components/Card";
+import { useGlobalContext } from "../../context/GlobalProvider";
 const home = () => {
 
   const {data, refetch} =useAppwrite(getAllPosts)
@@ -25,7 +26,7 @@ const home = () => {
     await refetch();
     setRefreshing(false);
   };
-
+  const {user,setUser,setIsLogged}=useGlobalContext()
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -40,10 +41,10 @@ const home = () => {
             <View className="mb-6 justify-between items-center flex-row">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
-                  Welcome Back
+                  Welcome Back,
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  Zaeem
+                  {user?.username}
                 </Text>
               </View>
               <View className="mt-1.5">
