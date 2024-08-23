@@ -1,14 +1,18 @@
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EmptyState from "../../components/EmptyState";
-import { getCustomerPosts, SignOut } from "../../lib/appwrite";
+import {
+  deleteCurrentPost,
+  getCustomerPosts,
+  SignOut,
+} from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import PostCard from "../../components/PostCard";
 const profile = () => {
   const logout = async () => {
@@ -17,14 +21,29 @@ const profile = () => {
     setIsLogged(false);
     router.replace("/");
   };
+
   const { user, setUser, setIsLogged } = useGlobalContext();
-  const { data } = useAppwrite(() => getCustomerPosts(user.$id));
+  const { data, refetch } = useAppwrite(() => getCustomerPosts(user.$id));
+  useEffect(() => {
+    refetch();
+  }, []);
+  const deletePost = async (id) => {
+    await deleteCurrentPost(id);
+    refetch();
+  };
+  useFocusEffect(
+    useCallback(() => {
+      refetch(); // Refetch posts when the profile screen is focused
+    }, [])
+  );
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={data}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <PostCard post={item} btn="Delete"/>}
+        renderItem={({ item }) => (
+          <PostCard post={item} btn="X" btnFn={() => deletePost(item?.$id)} />
+        )}
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
             <TouchableOpacity
@@ -51,8 +70,11 @@ const profile = () => {
               titleStyles="text-lg"
             />
             <View className="mt-5 flex-row">
-            
-             
+              <InfoBox
+                title={"RECENT POSTS"}
+                containerStyles="mt-5"
+                titleStyles="text-lg"
+              />
             </View>
           </View>
         )}

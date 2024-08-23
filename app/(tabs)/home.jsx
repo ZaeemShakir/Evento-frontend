@@ -19,11 +19,12 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 const home = () => {
 
   const {data, refetch} =useAppwrite(getAllPosts)
-  const {data:latestPosts} =useAppwrite(getLatestPosts)
+  const {data:latestPosts, refetch:latestReftch} =useAppwrite(getLatestPosts)
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
+    await latestReftch();
     setRefreshing(false);
   };
   const {user,setUser,setIsLogged}=useGlobalContext()
@@ -54,7 +55,7 @@ const home = () => {
             <SearchInput />
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-gray-100 text-lg font-pregular mb-3">
-                Latest Jobs
+                RECENTLY POSTED
               </Text>
               <Trending posts={latestPosts} />
             </View>

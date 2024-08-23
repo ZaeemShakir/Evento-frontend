@@ -3,7 +3,7 @@ import React from "react";
 import icons from "../constants/icons";
 import CustomButton from "./CustomButton";
 
-const PostCard = ({ post ,btn}) => {
+const PostCard = ({ post,btn,btnFn}) => {
   const eventDate = new Date(post.event_data);
 
   const formattedDate = eventDate.toLocaleDateString('en-GB', {
@@ -41,7 +41,8 @@ const PostCard = ({ post ,btn}) => {
         <View className="pt-2">
           <CustomButton  
           title={btn}
-          containerStyles="w-20 min-h-[25px]"
+          containerStyles={`${btn==='X'?'w-10':'w-20'} min-h-[25px]`}
+          handlePress={btnFn}
         />
         </View>
       </View>
