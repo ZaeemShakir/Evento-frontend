@@ -10,15 +10,14 @@ import {
   import { SafeAreaView } from "react-native-safe-area-context";
   import { images } from "../../constants";
   import SearchInput from "../../components/SearchInput";
-  import Trending from "../../components/Trending";
   import EmptyState from "../../components/EmptyState";
-  import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
+  import { getAllCustomPosts, getAllPosts } from "../../lib/appwrite";
   import useAppwrite from "../../lib/useAppwrite";
   import Card from "../../components/Card";
   import { useGlobalContext } from "../../context/GlobalProvider";
+import PostCard from "../../components/PostCard";
 const vendor_home = () => {
-    const {data, refetch} =useAppwrite(getAllPosts)
-    const {data:latestPosts} =useAppwrite(getLatestPosts)
+    const {data, refetch} =useAppwrite(getAllCustomPosts)
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = async () => {
       setRefreshing(true);
@@ -33,7 +32,7 @@ const vendor_home = () => {
           data={data}
           keyExtractor={(item) => item.$id}
           renderItem={({ item }) => (
-          <Card post={item}/>  
+          <PostCard post={item} btn="apply"/>  
           )}
           ListHeaderComponent={() => (
             <View className="my-6 px-4 space-y-6">
@@ -47,11 +46,8 @@ const vendor_home = () => {
                   </Text>
                 </View>
                 <View className="mt-1.5">
-                  <Image
-                    source={images.logoSmall}
-                    className="w-9 h-10 "
-                    resizeMode="contain"
-                  />
+                  <Text className="text-4xl w-9 h-10 font-pregular text-white">E</Text>
+                 
                 </View>
               </View>
               <SearchInput />

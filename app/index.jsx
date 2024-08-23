@@ -7,8 +7,8 @@ import {Redirect,router} from "expo-router"
 import {useGlobalContext} from "../context/GlobalProvider.js"
 export default function App() {
   const { loading, isLogged,user } = useGlobalContext();
-  if (!loading && isLogged && user.usertype==="customer") return <Redirect href="/home" />;
-  if (!loading && isLogged && user.usertype==="vendor") return <Redirect href="/vendor_home" />;
+  if (!loading && isLogged && user?.usertype==="customer") return <Redirect href="/home" />;
+  if (!loading && isLogged && user?.usertype==="vendor") return <Redirect href="/vendor_home" />;
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
@@ -39,11 +39,11 @@ export default function App() {
           </Text>
       <CustomButton title="Continue as customers"
       handlePress={()=>router.push('/signIn')}
-      containerStyles="w-full mt-7"
+      containerStyles="w-full mt-7 min-h-[62px]"
       />
         <CustomButton title="Continue as Vendor"
       handlePress={()=>router.push('/signIn_vendor')}
-      containerStyles="w-full mt-7"
+      containerStyles="w-full mt-7 min-h-[62px]"
       />
         </View>
       </ScrollView>

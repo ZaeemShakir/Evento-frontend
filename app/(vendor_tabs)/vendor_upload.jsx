@@ -26,6 +26,8 @@ const vendor_upload = () => {
     video: null,
     thumbnail: null,
     prompt: "",
+    prompt2: "",
+    prompt3: "",
   });
   const [imgForm, setImgForm] = useState({
     title: "",
@@ -54,6 +56,8 @@ const vendor_upload = () => {
         video: null,
         thumbnail: null,
         prompt: "",
+        prompt2: "",
+        prompt3: "",
       });
       setUploading(false);
     }
@@ -208,16 +212,30 @@ const vendor_upload = () => {
               </TouchableOpacity>
             </View>
             <FormField
-              title={"prompt"}
+              title={"prompt 1"}
               value={form.prompt}
               placeholder={"prompt"}
               handleChange={(e) => setForm({ ...form, prompt: e })}
               otherStyles="mt-7"
             />
+             <FormField
+              title={"prompt 2"}
+              value={form.prompt2}
+              placeholder={"prompt"}
+              handleChange={(e) => setForm({ ...form, prompt2: e })}
+              otherStyles="mt-7"
+            />
+             <FormField
+              title={"prompt 3"}
+              value={form.prompt3}
+              placeholder={"prompt"}
+              handleChange={(e) => setForm({ ...form, prompt3: e })}
+              otherStyles="mt-7"
+            />
             <CustomButton
               title="Submit"
               handlePress={submit}
-              containerStyles={"mt-7"}
+              containerStyles={"mt-7 min-h-[62px]"}
               isLoading={uploading}
             />
           </>
@@ -254,7 +272,6 @@ const vendor_upload = () => {
                       />
                     </View>
                     <Text className="text-sm text-gray-100 font-pmedium">
-                      {" "}
                       choose a file
                     </Text>
                   </View>
@@ -285,7 +302,7 @@ const vendor_upload = () => {
             <CustomButton
               title="Submit"
               handlePress={submitImg}
-              containerStyles={"mt-7"}
+              containerStyles={"mt-7 min-h-[62px]"}
               isLoading={uploading}
             />
           </>

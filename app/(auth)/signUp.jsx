@@ -66,7 +66,7 @@ const signUp = () => {
       <CustomButton
       title="Sign Up"
       handlePress={submit}
-      containerStyles="mt-7 w-full"
+      containerStyles="mt-7 w-full min-h-[62px]"
       isLoading={loading}
       />
       <View className="justify-center pt-5 flex-row gap-2">

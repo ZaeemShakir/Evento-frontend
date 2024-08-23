@@ -48,11 +48,7 @@ const home = () => {
                 </Text>
               </View>
               <View className="mt-1.5">
-                <Image
-                  source={images.logoSmall}
-                  className="w-9 h-10 "
-                  resizeMode="contain"
-                />
+              <Text className="text-4xl w-9 h-10 font-pregular text-white">E</Text>
               </View>
             </View>
             <SearchInput />

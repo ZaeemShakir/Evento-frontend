@@ -1,130 +1,118 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import FormField from '../../components/FormField'
-import {Video, ResizeMode} from "expo-av"
-import { icons } from '../../constants'
-import CustomButton from '../../components/CustomButton'
-import * as ImagePicker from 'expo-image-picker'
-import {router} from 'expo-router'
-import { createVideo } from '../../lib/appwrite'
-import { useGlobalContext } from '../../context/GlobalProvider'
-const create = () => {
-  const {user}=useGlobalContext();
-  const [uploading, setUploading] = useState(false)
+import { View, Text, ScrollView, TouchableOpacity, Image, Alert, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import FormField from '../../components/FormField';
+import CustomButton from '../../components/CustomButton';
+import { router } from 'expo-router';
+import { createPost } from '../../lib/appwrite';
+import { useGlobalContext } from '../../context/GlobalProvider';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+const Create = () => {
+  
+  const { user } = useGlobalContext();
+  const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
-    title:"",
-    video:null,
-    thumbnail:null,
-    prompt:''
-  })
+    event_name: "",
+    event_desc: "",
+    event_date: new Date(),
+    event_loc: ""
+  });
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const submit=async()=>{
-    if(!form.prompt || !form.title || !form.thumbnail ||!form.video){
-      return Alert.alert('Please fill in all the required data')
+  const submit = async () => {
+    if (!form.event_name || !form.event_desc || !form.event_date || !form.event_loc) {
+      return Alert.alert('Please fill in all the required data');
     }
-    setUploading(true)
-    try{
-      await createVideo({
-        ...form,userId:user.$id
-      })
-      Alert.alert('success','post uploaded')
-      router.push('/home')
-    }
-    catch(error){
-      Alert.alert("Something went wrong", error)
-    }
-    finally{
+    console.log(form.currentDate)
+    setUploading(true);
+    try {
+      await createPost({
+        ...form,
+        userId: user.$id
+      });
+      Alert.alert('Success', 'Post uploaded');
+      router.push('/profile');
+    } catch (error) {
+      Alert.alert("Something went wrong", error);
+    } finally {
       setForm({
-        title:"",
-        video:null,
-        thumbnail:null,
-        prompt:''
-      })
-      setUploading(false)
+        event_name: "",
+        event_desc: "",
+        event_date: new Date(),
+        event_loc: ""
+      });
+      setUploading(false);
     }
-
-  }
-  const openPicker = async (selectType) => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: selectType==='image'?ImagePicker.MediaTypeOptions.Images:ImagePicker.MediaTypeOptions.Videos,
-   
-      aspect: [4, 3],
-      quality: 1,
-    });
-      if (!result.canceled) {
-        if (selectType === 'image') {
-          setForm({ ...form, thumbnail: result.assets[0] });
-        } else if (selectType === 'video') {
-          setForm({ ...form, video: result.assets[0] });
-        }
-      } 
-   
   };
+
+  
+
+  const onChange = (event, selectedDate) => {
+    console.log(selectedDate)
+    const currentDate = selectedDate || form.event_date;
+    setShowDatePicker(Platform.OS === 'ios');
+    setForm({ ...form, event_date: currentDate });
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="px-4 my-6">
         <Text className="text-2xl text-white font-psemibold">
           Upload Post
         </Text>
-        <FormField 
-        title={"Title"}
-        value={form.title}
-        placeholder={"Tell about the event"}
-        handleChange={(e)=>setForm({...form, title:e})}
-        otherStyles="mt-10"
+        <FormField
+          title={"What type of service you looking for?"}
+          value={form.event_name}
+          placeholder={"What type of event is it?"}
+          handleChange={(e) => setForm({ ...form, event_name: e })}
+          otherStyles="mt-10"
         />
-        <View className="mt-7 space-y-2">
-          <Text className="text-base text-gray-100 font-pmedium">Upload Video</Text>
-          <TouchableOpacity onPress={()=>openPicker('video')}>
-           {form.video?(<Video
-           source={{uri:form.video.uri}}
-           className="w-full h-64 rounded-2xl"
-  
-           resizeMode={ResizeMode.COVER}
         
-           />):(
-            <View className="w-full h-40 px-4 bg-black-100 rounded-2xl justify-center items-center">
-                <View className="w-14 h-14  justify-center items-center">
-                  <Image source={icons.upload} ResizeMode="contain" className="w-5 h-1/2"/>
-
-                </View>
-            </View>
-           )} 
-          </TouchableOpacity >
-        </View>
-        <View className="mt-7 space-y-2">
-        <Text className="text-2xl text-white font-psemibold">
-          Upload Image
-        </Text>
-        <TouchableOpacity  onPress={()=>openPicker('image')}>
-           {form.thumbnail?(<Image source={{uri:form.thumbnail.uri}}
-           className="w-full h-64 rounded-2xl"
-           resizeMode='cover'
-           />):(
-            <View className="w-full h-16 flex-row space-x-2 px-4 bg-black-100 rounded-2xl justify-center items-center">
-                
-                  <Image source={icons.upload} ResizeMode="contain" className="w-5 h-1/2"/>
-                <Text className="text-sm text-gray-100 font-pmedium"> choose a file</Text>
-            </View>
-           )} 
-          </TouchableOpacity>
-        </View>
-        <FormField 
-        title={"prompt"}
-        value={form.prompt}
-        placeholder={"prompt"}
-        handleChange={(e)=>setForm({...form, prompt:e})}
-        otherStyles="mt-7"
+        <FormField
+          title={"Event Description"}
+          value={form.event_desc}
+          placeholder={"Describe the event"}
+          handleChange={(e) => setForm({ ...form, event_desc: e })}
+          otherStyles="mt-10 w-full h-40 mb-10"
+          inputBoxStyle="h-40 items-baseline"
         />
-      <CustomButton title="Submit"
-      handlePress={submit}
-      containerStyles={"mt-7"}
-      isLoading={uploading}
-      />
+        
+        <TouchableOpacity onPress={() => setShowDatePicker(true)} className="mt-10">
+          <Text className="text-white text-lg">Select Event Date and Time</Text>
+          <Text className="text-gray-300 text-base mt-2">
+            {form.event_date.toLocaleString()}
+          </Text>
+        </TouchableOpacity>
+         {showDatePicker && (
+           <DateTimePicker
+           testID="dateTimePicker"
+           value={form.event_date}
+           mode='date'
+           is24Hour={false} 
+           display="default" 
+           onChange={onChange}
+         />
+        )} 
+      
+
+        <FormField
+          title={"Event Location"}
+          value={form.event_loc}
+          placeholder={"Where will the event be held?"}
+          handleChange={(e) => setForm({ ...form, event_loc: e })}
+          otherStyles="mt-10"
+        />
+       
+        <CustomButton
+          title="Submit"
+          handlePress={submit}
+          containerStyles={"mt-7 min-h-[62px]"}
+          isLoading={uploading}
+        />
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default create
+export default Create;

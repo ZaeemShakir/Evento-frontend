@@ -15,12 +15,12 @@ const zoomIn = {
     scale: 0.9,
   },
   1: {
-    scale: 1.1,
+    scale: 1,
   },
 };
 const zoomOut = {
   0: {
-    scale: 1.1,
+    scale: 1,
   },
   1: {
     scale: 0.9,
@@ -35,36 +35,42 @@ const TrendingItem = ({ activeItem, item }) => {
       animation={activeItem === item.$id ? zoomIn : zoomOut}
       duration={500}
     >
-      {play ? (
-        <Video source={{uri:item.video}} className="w-52 h-72 rounded-[35px] mt-3 bg-white/10"
-        resizeMode={ResizeMode.CONTAIN}
-        useNativeControls
-        shouldPlay
-        onPlaybackStatusUpdate={(status)=>{
-          if(status.didJustFinish){
-            setplay(false)
-          }
-        }}
-
+      <TouchableOpacity
+        className="relative justify-center items-center"
+        activeOpacity={0.7}
+      >
+        <Image
+          source={{ uri: item.image }}
+          className="w-52 h-72 rounded-[35px] mt-3 bg-white/10"
+          resizeMode="cover"
         />
-      ) : (
-        <TouchableOpacity
-          className="relative justify-center items-center"
-          activeOpacity={0.7}
-          onPress={() => setplay(!play)}
-        >
-          <ImageBackground
-            source={{ uri: item.thumbnail }}
-            className="w-52 h-72 rounded-[35px] my-5 overflow-hidden shadow-lg shadow-black-40"
-            resizeMode="cover"
-          />
-          <Image
-            source={icons.play}
-            className="w-12 h-12 absolute"
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-      )}
+
+        <View className="absolute bottom-0 w-full p-4 bg-black bg-opacity-50 rounded-b-[35px]">
+          <View className="flex-row items-center">
+            <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center">
+              <Image
+                source={{ uri: item.userCustomers.avatar }}
+                className="w-full h-full rounded-lg"
+                resizeMode="cover"
+              />
+            </View>
+            <View className="flex-1 ml-3">
+              <Text
+                numberOfLines={1}
+                className="text-white font-psemibold text-sm"
+              >
+                {item.title}
+              </Text>
+              <Text
+                className="text-xs text-gray-100 font-pregular"
+                numberOfLines={1}
+              >
+                {item.userCustomers.username}
+              </Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
     </Animatable.View>
   );
 };
@@ -76,6 +82,7 @@ const Trending = ({ posts }) => {
       setActive(viewableItems[0].key);
     }
   };
+
   return (
     <FlatList
       data={posts}

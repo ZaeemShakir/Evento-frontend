@@ -2,13 +2,14 @@ import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EmptyState from "../../components/EmptyState";
-import { getUserPosts, SignOut } from "../../lib/appwrite";
+import { getCustomerPosts, SignOut } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
-import Card from "../../components/Card";
+
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
 import { router } from "expo-router";
+import PostCard from "../../components/PostCard";
 const profile = () => {
   const logout = async () => {
     await SignOut();
@@ -17,13 +18,13 @@ const profile = () => {
     router.replace("/");
   };
   const { user, setUser, setIsLogged } = useGlobalContext();
-  const { data } = useAppwrite(() => getUserPosts(user.$id));
+  const { data } = useAppwrite(() => getCustomerPosts(user.$id));
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={data}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <Card post={item} />}
+        renderItem={({ item }) => <PostCard post={item} btn="Delete"/>}
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
             <TouchableOpacity
@@ -50,17 +51,8 @@ const profile = () => {
               titleStyles="text-lg"
             />
             <View className="mt-5 flex-row">
-              <InfoBox
-                title={data.length || 0}
-                subtitle={"Posts"}
-                containerStyles="mr-10"
-                titleStyles="text-xl"
-              />
-              <InfoBox
-                title={"1.2k"}
-                subtitle={"Followers"}
-                titleStyles="text-xl"
-              />
+            
+             
             </View>
           </View>
         )}
