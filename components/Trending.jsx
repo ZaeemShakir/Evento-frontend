@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { icons } from "../constants";
 import {Video,ResizeMode} from 'expo-av'
+import { router } from "expo-router";
 const zoomIn = {
   0: {
     scale: 0.9,
@@ -46,7 +47,9 @@ const TrendingItem = ({ activeItem, item }) => {
         />
 
         <View className="absolute bottom-0 w-full p-4 bg-black bg-opacity-50 rounded-b-[35px]">
-          <View className="flex-row items-center">
+          <TouchableOpacity
+          onPress={()=>(router.push(`/vndr_profile/${item.userCustomers?.$id}`))}
+          className="flex-row items-center">
             <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center">
               <Image
                 source={{ uri: item.userCustomers.avatar }}
@@ -68,7 +71,7 @@ const TrendingItem = ({ activeItem, item }) => {
                 {item.userCustomers.username}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </Animatable.View>

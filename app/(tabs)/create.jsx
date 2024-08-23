@@ -24,7 +24,6 @@ const Create = () => {
     if (!form.event_name || !form.event_desc || !form.event_date || !form.event_loc) {
       return Alert.alert('Please fill in all the required data');
     }
-    console.log(form.currentDate)
     setUploading(true);
     try {
       await createPost({
@@ -49,7 +48,6 @@ const Create = () => {
   
 
   const onChange = (event, selectedDate) => {
-    console.log(selectedDate)
     const currentDate = selectedDate || form.event_date;
     setShowDatePicker(Platform.OS === 'ios');
     setForm({ ...form, event_date: currentDate });

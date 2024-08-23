@@ -2,14 +2,15 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import icons from "../constants/icons";
 import { ResizeMode, Video } from "expo-av";
-
+import { router } from "expo-router";
 const Card = ({ post }) => {
-  
   const [play, setPlay] = useState(false);
   return (
     <View className="flex-col items-center px-4 mb-14">
       <View className="flex-row gap-3 items-start">
-        <View className="justify-center items-center flex-row flex-1">
+        <TouchableOpacity 
+        onPress={()=>(router.push(`/vndr_profile/${post.userCustomers?.$id}`))}
+        className="justify-center items-center flex-row flex-1">
           <View className="w-[46px] h-[46px] rounded-lg border border-secondary justify-center items-center ">
             <Image
               source={{ uri: post.userCustomers.avatar }}
@@ -31,7 +32,7 @@ const Card = ({ post }) => {
               {post.userCustomers.username}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <View className="pt-2">
           <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
         </View>

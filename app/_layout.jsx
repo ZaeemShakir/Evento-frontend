@@ -30,6 +30,7 @@ if(!fontsLoaded && !error) return null
       <Stack.Screen name='(tabs)' options={{headerShown:false}}/>
       <Stack.Screen name='(vendor_tabs)' options={{headerShown:false}}/>
       <Stack.Screen name='search/[query]' options={{headerShown:false}}/>
+      <Stack.Screen name='vndr_profile/[id]' options={{headerShown:false}}/>
     </Stack>
     </GlobalProvider>
   )
