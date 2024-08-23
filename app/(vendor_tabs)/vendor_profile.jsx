@@ -2,38 +2,33 @@ import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EmptyState from "../../components/EmptyState";
-import { getUserPosts, SignOut } from "../../lib/appwrite";
+import { getUserImages, getUserPosts, SignOut } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
 import Card from "../../components/Card";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
 import { router } from "expo-router";
+import ImgCard from "../../components/ImgCard";
 
 const VendorProfile = () => {
   const [selectedTab, setSelectedTab] = useState("Photos"); // State to manage selected tab
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { data } = useAppwrite(() => getUserPosts(user.$id));
-
+  const {data:image} =useAppwrite(() => getUserImages(user.$id));
   const logout = async () => {
     await SignOut();
     setUser(null);
     setIsLogged(false);
     router.replace("/");
   };
-
-  // Filter data based on selected tab
-  const filteredData = data?.filter((item) => {
-    if (selectedTab === "Photos") return item.type === "photo";
-    if (selectedTab === "Videos") return item.type === "video";
-  });
-console.log(data)
+  const filteredData = selectedTab === "Videos" ? data : image;
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={data}
+        data={filteredData}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => selectedTab === 'Videos' ? <Card post={item} /> : null}
+        renderItem={({ item }) => selectedTab === 'Videos' ? <Card post={item} /> : <ImgCard post={item} />}
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
             <TouchableOpacity
