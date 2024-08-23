@@ -16,6 +16,16 @@ const authLayout = () => {
       headerShown:false
      }}
     />
+     <Stack.Screen name='signUp_vendor'
+     options={{
+      headerShown:false
+     }}
+    />
+     <Stack.Screen name='signIn_vendor'
+     options={{
+      headerShown:false
+     }}
+    />
     </Stack>
     <StatusBar backgroundColor="#161622" style="light"/>
     </>

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView ,Image, Alert} from 'react-native'
+import { View, Text, ScrollView ,Image, Alert, TouchableOpacity} from 'react-native'
 import React,{useState} from 'react'
 import {SafeAreaView} from "react-native-safe-area-context"
 import {images} from "../../constants"
@@ -38,7 +38,9 @@ const signIn = () => {
    <SafeAreaView className="bg-primary h-full">
     <ScrollView>
       <View className="w-full justify-center items-center min-h-[85vh] px-4 my-6">
+        <TouchableOpacity onPress={()=>router.replace('/')}>
         <Image source={images.logo} resizeMode='contain' className='w-[115px] h-[100px]'/>
+        </TouchableOpacity>
         <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">Log in to Evento</Text>
       <FormField
       title="Email"

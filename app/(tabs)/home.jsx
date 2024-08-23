@@ -27,7 +27,7 @@ const home = () => {
     setRefreshing(false);
   };
   const {user,setUser,setIsLogged}=useGlobalContext()
-
+  
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList

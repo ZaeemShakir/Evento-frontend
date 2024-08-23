@@ -1,6 +1,7 @@
 import { View, Text, Image } from "react-native";
 import { Tabs, Redirect } from "expo-router";
 import { icons } from "../../constants";
+import { useGlobalContext } from "../../context/GlobalProvider";
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="items-center justify-center gap-2">
@@ -20,11 +21,13 @@ const TabIcon = ({ icon, color, name, focused }) => {
   );
 };
 const tabLayout = () => {
+  const {user,setUser,setIsLogged}=useGlobalContext()
+  console.log(user?.usertype)
+  if(user?.usertype==='customer'){
   return (
     <>
       <Tabs
         screenOptions={{
-          
           tabBarShowLabel: false,
           tabBarActiveTintColor:'#ffa001',
           tabBarInactiveTintColor:'#cdcde0',
@@ -33,11 +36,9 @@ const tabLayout = () => {
             borderTopWidth:1,
             borderTopColor:'#232533',
             height:84,
-          
           },
           headerShown:false,
         }}
-      
       >
         <Tabs.Screen
           name="home"
@@ -69,6 +70,8 @@ const tabLayout = () => {
             ),
           }}
         />
+        
+         
          <Tabs.Screen
           name="profile"
           options={{
@@ -84,24 +87,13 @@ const tabLayout = () => {
             ),
           }}
         />
-         <Tabs.Screen
-          name="bookmarks"
-          options={{
-            title: "Bookmark",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.bookmark}
-                color={color}
-                name="Bookmark"
-                focused={focused}
-              />
-            ),
-          }}
-        />
       </Tabs>
     </>
   );
 };
+if(user?.usertype==='vendor'){
+
+}
+}
 
 export default tabLayout;

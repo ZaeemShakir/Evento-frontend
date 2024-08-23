@@ -40,6 +40,10 @@ export default function App() {
       handlePress={()=>router.push('/signIn')}
       containerStyles="w-full mt-7"
       />
+        <CustomButton title="Continue as Vendor"
+      handlePress={()=>router.push('/signIn_vendor')}
+      containerStyles="w-full mt-7"
+      />
         </View>
       </ScrollView>
       <StatusBar backgroundColor="#161622" style="light"/>
