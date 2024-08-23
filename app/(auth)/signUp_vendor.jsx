@@ -12,7 +12,8 @@ const signUp_vendor = () => {
     const [form, setForm] = useState({
       username:'',
       email:'',
-      password:''
+      password:'',
+      usertype:'vendor'
     })
     const submit= async()=>{
       if(!form.email || !form.password||!form.username){
@@ -20,7 +21,7 @@ const signUp_vendor = () => {
       }
       setloading(true)
       try{
-        const result=await createUser(form.email,form.password,form.username)
+        const result=await createUser(form.email,form.password,form.username,form.usertype)
       setUser(result)
       setIsLogged(true)
       router.replace('/home')

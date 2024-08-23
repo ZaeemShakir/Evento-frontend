@@ -20,7 +20,7 @@ const signIn_vendor = () => {
         const result= await getCurrentUser()
         setUser(result);
         setIsLogged(true);
-      router.replace('/home')
+      router.replace('/vendor_home')
       }
       catch(error){
         Alert.alert('Error',error.message)

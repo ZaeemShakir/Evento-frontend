@@ -21,7 +21,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
   );
 };
 const tabLayout = () => {
- 
+
   return (
     <>
       <Tabs
@@ -39,9 +39,9 @@ const tabLayout = () => {
         }}
       >
         <Tabs.Screen
-          name="home"
+          name="vendor_home"
           options={{
-            title: "Home",
+            title: "vendor_home",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
@@ -54,15 +54,15 @@ const tabLayout = () => {
           }}
         />
          <Tabs.Screen
-          name="create"
+          name="vendor_upload"
           options={{
-            title: "Create",
+            title: "vendor_upload",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.plus}
                 color={color}
-                name="Create"
+                name="Upload"
                 focused={focused}
               />
             ),
@@ -71,9 +71,9 @@ const tabLayout = () => {
         
          
          <Tabs.Screen
-          name="profile"
+          name="vendor_profile"
           options={{
-            title: "Profile",
+            title: "Vendor_profile",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon

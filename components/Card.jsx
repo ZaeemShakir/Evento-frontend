@@ -66,6 +66,27 @@ const Card = ({ post }) => {
           />
         </TouchableOpacity>
       )}
+       <View className=" w-[60%] justify-between mt-5 flex-row items-center ">
+            
+            <Text
+              className="text-sm text-gray-100 font-pregular "
+              numberOfLines={1}
+            >
+              #{post.prompt}
+            </Text>
+            <Text
+              className="text-sm text-gray-100 font-pregular"
+              numberOfLines={1}
+            >
+              #{post.prompt}
+            </Text>
+            <Text
+              className="text-sm text-gray-100 font-pregular"
+              numberOfLines={1}
+            >
+              #{post.prompt}
+            </Text>
+          </View>
     </View>
   );
 };
