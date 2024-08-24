@@ -11,12 +11,12 @@ import {
   import { images } from "../../constants";
   import SearchInput from "../../components/SearchInput";
   import EmptyState from "../../components/EmptyState";
-  import { getAllCustomPosts, getAllPosts } from "../../lib/appwrite";
+  import { applyJob, getAllCustomPosts, getAllPosts } from "../../lib/appwrite";
   import useAppwrite from "../../lib/useAppwrite";
-  import Card from "../../components/Card";
   import { useGlobalContext } from "../../context/GlobalProvider";
 import PostCard from "../../components/PostCard";
 const vendor_home = () => {
+  
     const {data, refetch} =useAppwrite(getAllCustomPosts)
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = async () => {
@@ -24,15 +24,27 @@ const vendor_home = () => {
       await refetch();
       setRefreshing(false);
     };
-    const {user,setUser,setIsLogged}=useGlobalContext()
     
+    const {user}=useGlobalContext()
+    const jobApply=async(id,userid)=>{
+    
+      try{
+        await applyJob(id,userid)
+        Alert.alert("Success","You have applied for the job")
+        await refetch()
+          } 
+        catch(error){
+          Alert.alert('Error',error)
+        }
+        }
+     
     return (
       <SafeAreaView className="bg-primary h-full">
         <FlatList
           data={data}
           keyExtractor={(item) => item.$id}
           renderItem={({ item }) => (
-          <PostCard post={item} btn="apply"/>  
+          <PostCard post={item} btn={"Apply"} btnFn={()=>jobApply(item?.$id,user?.$id)} userid={user?.$id}/>  
           )}
           ListHeaderComponent={() => (
             <View className="my-6 px-4 space-y-6">

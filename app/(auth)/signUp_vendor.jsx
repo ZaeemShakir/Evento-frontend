@@ -24,7 +24,7 @@ const signUp_vendor = () => {
         const result=await createUser(form.email,form.password,form.username,form.usertype)
       setUser(result)
       setIsLogged(true)
-      router.replace('/home')
+      router.replace('/vendor_home')
       }
       catch(error){
         Alert.alert('Error',error.message)

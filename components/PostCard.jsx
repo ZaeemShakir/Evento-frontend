@@ -3,7 +3,8 @@ import React from "react";
 import icons from "../constants/icons";
 import CustomButton from "./CustomButton";
 
-const PostCard = ({ post,btn,btnFn}) => {
+const PostCard = ({ post,btn,btnFn,userid}) => {
+
   const eventDate = new Date(post.event_data);
 
   const formattedDate = eventDate.toLocaleDateString('en-GB', {
@@ -11,6 +12,11 @@ const PostCard = ({ post,btn,btnFn}) => {
     month: '2-digit',
     year: 'numeric',
   });
+  const loop = () => {
+    const isApplied = post.vendor_appliation.some(btns => btns.$id === userid);
+    return isApplied ? "Applied" : "Apply";
+  }
+  const btnTitle=loop()
 
   return (
     <View className="flex-col items-center px-4 py-6 mb-14 border border-secondary-100 rounded-xl w-[90%] mx-auto">
@@ -40,8 +46,8 @@ const PostCard = ({ post,btn,btnFn}) => {
         </View>
         <View className="pt-2">
           <CustomButton  
-          title={btn}
-          containerStyles={`${btn==='X'?'w-10':'w-20'} min-h-[25px]`}
+          title={btnTitle}
+          containerStyles={`${btn==='X'?'w-10':'w-20'} min-h-[25px] `}
           handlePress={btnFn}
         />
         </View>

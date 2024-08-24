@@ -7,33 +7,25 @@ import {
   import { SafeAreaView } from "react-native-safe-area-context";
   import SearchInput from "../../components/SearchInput";
   import EmptyState from "../../components/EmptyState";
-  import { searchLatestImage, searchLatestPosts } from "../../lib/appwrite";
   import useAppwrite from "../../lib/useAppwrite";
-  import Card from "../../components/Card";
   import { useLocalSearchParams } from "expo-router";
-  import ImgCard from "../../components/ImgCard";
+import PostCard from "../../components/PostCard";
+import { searchLatestJobs } from "../../lib/appwrite";
   const Search = () => {
     const { query } = useLocalSearchParams();
-    const { data, refetch } = useAppwrite(() => searchLatestPosts(query));
-    const { data: data1, refetch: refetch1 } = useAppwrite(() => searchLatestImage(query));
+    const { data, refetch } = useAppwrite(() => searchLatestJobs(query));
     useEffect(() => {
       refetch();
-      refetch1();
     }, [query]);
-    const combinedData = data.map((item, index) => ({
-      ...item,
-      imageItem: data1[index] || null,
-    }));
     return (
       <SafeAreaView className="bg-primary h-full">
         <FlatList
-          data={combinedData}
+          data={data}
           keyExtractor={(item) => item.$id}
           renderItem={({ item }) => (
-            <>
-              <Card post={item} />
-              {item.imageItem ? <ImgCard post={item.imageItem} /> : null}
-            </>
+            
+              <PostCard post={item} btn="apply" />
+             
           )}
           ListHeaderComponent={() => (
             <>
