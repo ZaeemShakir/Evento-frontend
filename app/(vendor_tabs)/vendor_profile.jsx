@@ -68,7 +68,7 @@ const VendorProfile = () => {
               />
             </View>
 
-            {/* Segmented Control / Tabs */}
+            
             <View className="mt-10 flex-row w-full justify-around">
               <TouchableOpacity onPress={() => setSelectedTab("Photos")}>
                 <Text

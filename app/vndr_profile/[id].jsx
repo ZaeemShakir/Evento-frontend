@@ -9,7 +9,7 @@ import InfoBox from "../../components/InfoBox";
 import { useLocalSearchParams } from 'expo-router';
 import ImgCard from "../../components/ImgCard";
 const vndr_profile = () => {
-    const [selectedTab, setSelectedTab] = useState("Photos"); // State to manage selected tab
+    const [selectedTab, setSelectedTab] = useState("Photos"); 
     const { id } = useLocalSearchParams();
     const { data } = useAppwrite(() => getUserPosts(id));
     const {data:image} =useAppwrite(() => getUserImages(id));

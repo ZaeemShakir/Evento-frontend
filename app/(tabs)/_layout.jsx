@@ -13,7 +13,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
       />
       <Text
         className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
-      style={{color:color}}
+        style={{ color: color }}
       >
         {name}
       </Text>
@@ -21,21 +21,20 @@ const TabIcon = ({ icon, color, name, focused }) => {
   );
 };
 const tabLayout = () => {
- 
   return (
     <>
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
-          tabBarActiveTintColor:'#ffa001',
-          tabBarInactiveTintColor:'#cdcde0',
-          tabBarStyle:{
-            backgroundColor:"#161622",
-            borderTopWidth:1,
-            borderTopColor:'#232533',
-            height:84,
+          tabBarActiveTintColor: "#ffa001",
+          tabBarInactiveTintColor: "#cdcde0",
+          tabBarStyle: {
+            backgroundColor: "#161622",
+            borderTopWidth: 1,
+            borderTopColor: "#232533",
+            height: 84,
           },
-          headerShown:false,
+          headerShown: false,
         }}
       >
         <Tabs.Screen
@@ -53,7 +52,7 @@ const tabLayout = () => {
             ),
           }}
         />
-         <Tabs.Screen
+        <Tabs.Screen
           name="create"
           options={{
             title: "Create",
@@ -68,9 +67,23 @@ const tabLayout = () => {
             ),
           }}
         />
-        
-         
-         <Tabs.Screen
+        <Tabs.Screen
+          name="chat"
+          options={{
+            title: "Chat",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.profile}
+                color={color}
+                name="Chat"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
           name="profile"
           options={{
             title: "Profile",
@@ -89,7 +102,5 @@ const tabLayout = () => {
     </>
   );
 };
-
-
 
 export default tabLayout;

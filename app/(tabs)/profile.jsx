@@ -8,7 +8,6 @@ import {
   SignOut,
 } from "../../lib/appwrite";
 import useAppwrite from "../../lib/useAppwrite";
-
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
@@ -33,9 +32,10 @@ const profile = () => {
   };
   useFocusEffect(
     useCallback(() => {
-      refetch(); // Refetch posts when the profile screen is focused
+      refetch(); 
     }, [])
   );
+ 
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList

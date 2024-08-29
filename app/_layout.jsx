@@ -31,7 +31,9 @@ if(!fontsLoaded && !error) return null
       <Stack.Screen name='(vendor_tabs)' options={{headerShown:false}}/>
       <Stack.Screen name='search/[query]' options={{headerShown:false}}/>
       <Stack.Screen name='vndr_profile/[id]' options={{headerShown:false}}/>
+      <Stack.Screen name='screens/vendor_list' options={{headerShown:false}}/>
       <Stack.Screen name='search_vendor/[query]' options={{headerShown:false}}/>
+      <Stack.Screen name='screens/messages' options={{headerShown:false}}/>
     </Stack>
     </GlobalProvider>
   )

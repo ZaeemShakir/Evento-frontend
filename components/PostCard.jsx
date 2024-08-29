@@ -1,12 +1,10 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import icons from "../constants/icons";
 import CustomButton from "./CustomButton";
+import { router } from "expo-router";
 
 const PostCard = ({ post,btn,btnFn,userid}) => {
-
   const eventDate = new Date(post.event_data);
-
   const formattedDate = eventDate.toLocaleDateString('en-GB', {
     day: '2-digit',
     month: '2-digit',
@@ -17,6 +15,21 @@ const PostCard = ({ post,btn,btnFn,userid}) => {
     return isApplied ? "Applied" : "Apply";
   }
   const btnTitle=loop()
+
+
+
+  const handleVendorListNavigation = () => {
+    const vendorDetails = post.vendor_appliation?.map(app => ({
+      accountId: app.$id,
+      username: app.username, 
+      avatar: app.avatar,    
+  })) || [];
+  
+  router.push({
+    pathname: '/screens/vendor_list',
+    params: { vendors: JSON.stringify(vendorDetails) }, 
+  });
+  }
 
   return (
     <View className="flex-col items-center px-4 py-6 mb-14 border border-secondary-100 rounded-xl w-[90%] mx-auto">
@@ -44,12 +57,22 @@ const PostCard = ({ post,btn,btnFn,userid}) => {
             </Text>
           </View>
         </View>
-        <View className="pt-2">
+        <View className="pt-2 justify-center items-end">
           <CustomButton  
-          title={btnTitle}
+          title={btn==='X'?'X':btnTitle}
           containerStyles={`${btn==='X'?'w-10':'w-20'} min-h-[25px] `}
           handlePress={btnFn}
         />
+        {
+          btn=='X'?(<TouchableOpacity className="mt-3 justify-center items-center"
+          onPress={handleVendorListNavigation}
+          ><Text
+            className="text-xs text-gray-100 font-pregular"
+            numberOfLines={1}
+          >
+            Number of applications: {post.vendor_appliation.length}
+          </Text></TouchableOpacity>):null
+        }
         </View>
       </View>
 

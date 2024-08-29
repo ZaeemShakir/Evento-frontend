@@ -17,7 +17,6 @@ import useAppwrite from "../../lib/useAppwrite";
 import Card from "../../components/Card";
 import { useGlobalContext } from "../../context/GlobalProvider";
 const home = () => {
-
   const {data, refetch} =useAppwrite(getAllPosts)
   const {data:latestPosts, refetch:latestReftch} =useAppwrite(getLatestPosts)
   const [refreshing, setRefreshing] = useState(false);
