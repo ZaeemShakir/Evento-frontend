@@ -19,7 +19,6 @@ import FormField from "../../components/FormField";
 
 const Messages = () => {
   const { chat_id, avatar, username, user_id } = useLocalSearchParams();
-
   const { data, refetch } = useAppwrite(() => getMessages(chat_id));
   const { user } = useGlobalContext();
   const [form, setForm] = useState();

@@ -34,6 +34,7 @@ if(!fontsLoaded && !error) return null
       <Stack.Screen name='screens/vendor_list' options={{headerShown:false}}/>
       <Stack.Screen name='search_vendor/[query]' options={{headerShown:false}}/>
       <Stack.Screen name='screens/messages' options={{headerShown:false}}/>
+      <Stack.Screen name='screens/CreateReview' options={{headerShown:false}}/>
     </Stack>
     </GlobalProvider>
   )

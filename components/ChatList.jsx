@@ -16,8 +16,9 @@ const ChatList = ({ items }) => {
   );
 
   return (
+    <View className="flex justify-center items-center">
     <TouchableOpacity
-      className="flex-row px-4 py-6 mb-14 border border-b-secondary-100 border-t-0 "
+      className="flex-row p-7 mb-6 border border-b-secondary-100 border-t-0 w-[90%] border-r-0 border-l-0  "
       onPress={() => {
         router.push({
           pathname: "/screens/messages",
@@ -39,7 +40,7 @@ const ChatList = ({ items }) => {
         });
       }}
     >
-      <View className="w-12 h-12 border border-secondary rounded-lg justify-center items-end">
+      <View className="w-12 h-12 border border-secondary rounded-lg justify-center ">
         <Image
           source={{
             uri:
@@ -77,6 +78,7 @@ const ChatList = ({ items }) => {
         </View>
       </View>
     </TouchableOpacity>
+    </View>
   );
 };
 

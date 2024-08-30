@@ -32,7 +32,7 @@ const vendor_list = () => {
     } else if (typeof result === 'object' && result !== null) {
       res = result;
     }
-    console.log(res)
+  
     router.push({
       pathname: '/screens/messages',
       params: {
