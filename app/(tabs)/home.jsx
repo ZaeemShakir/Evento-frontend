@@ -2,13 +2,10 @@ import {
   View,
   Text,
   FlatList,
-  Image,
   RefreshControl,
-  Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
@@ -17,7 +14,10 @@ import useAppwrite from "../../lib/useAppwrite";
 import Card from "../../components/Card";
 import { useGlobalContext } from "../../context/GlobalProvider";
 const home = () => {
+  {/*gets all the video post from the databse*/}
+  {/*the useappwrite is custom hook that calls the function when the page loads and the reftch function helps recall when page refreshes*/}
   const {data, refetch} =useAppwrite(getAllPosts)
+  {/*gets the recent images from the databse*/}
   const {data:latestPosts, refetch:latestReftch} =useAppwrite(getLatestPosts)
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
@@ -26,8 +26,7 @@ const home = () => {
     await latestReftch();
     setRefreshing(false);
   };
-  const {user,setUser,setIsLogged}=useGlobalContext()
-  
+  const {user}=useGlobalContext()
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList

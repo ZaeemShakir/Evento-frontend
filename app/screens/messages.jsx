@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
-  TextInput,
   FlatList,
   TouchableOpacity,
-  StyleSheet,
   Image,
   RefreshControl,
 } from "react-native";
@@ -16,7 +14,6 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import useAppwrite from "../../lib/useAppwrite";
 import InfoBox from "../../components/InfoBox";
 import FormField from "../../components/FormField";
-
 const Messages = () => {
   const { chat_id, avatar, username, user_id } = useLocalSearchParams();
   const { data, refetch } = useAppwrite(() => getMessages(chat_id));
@@ -26,7 +23,6 @@ const Messages = () => {
     useCallback(() => {
       refetch();
     }, [])
-
   );
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
@@ -34,7 +30,6 @@ const Messages = () => {
     await refetch();
     setRefreshing(false);
   };
-
   const handleSend = async () => {
     try {
       await sendMessage(chat_id, user?.$id, form);
@@ -44,7 +39,6 @@ const Messages = () => {
       console.error("Error sending message:", error.message);
     }
   };
-
   const renderMessage = ({ item }) => 
     (
     <View
@@ -62,7 +56,6 @@ const Messages = () => {
       </View>
     </View>
   );
-
   return (
     <SafeAreaView className="bg-primary h-full flex">
       <FlatList
@@ -88,16 +81,12 @@ const Messages = () => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-   
       />
       <View className="flex-row w-full p-2 items-center">
         <View className="flex-1 mr-2">
           <FormField
-          
           value={form}
           handleChange={(e)=>setForm(e)}
-         
-        
           />
         </View>
         <TouchableOpacity

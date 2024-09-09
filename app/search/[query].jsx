@@ -20,20 +20,26 @@ const Search = () => {
     refetch();
     refetch1();
   }, [query]);
-  const combinedData = data.map((item, index) => ({
-    ...item,
-    imageItem: data1[index] || null,
-  }));
+  
+  const combinedData = data.length !== 0
+  ? data.map((item, index) => ({
+      ...item,
+      imageItem: data1[index] || null,
+    }))
+  : data1.map((item, index) => ({
+      imageItem: item
+    }));
+console.log(combinedData)
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={combinedData}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <>
+         <>{data.length!==0?<>
             <Card post={item} />
             {item.imageItem ? <ImgCard post={item.imageItem} /> : null}
-          </>
+          </>:<ImgCard post={item.imageItem}/>}</>
         )}
         ListHeaderComponent={() => (
           <>

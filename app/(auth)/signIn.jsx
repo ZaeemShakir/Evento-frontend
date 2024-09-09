@@ -8,7 +8,7 @@ import {Link, router} from "expo-router"
 import { getCurrentUser, SignIn } from '../../lib/appwrite'
 import { useGlobalContext } from "../../context/GlobalProvider";
 const signIn = () => {
-  
+  {/*getting the setter for islogged and setting the user id and user type*/}
   const { setUser, setIsLogged } = useGlobalContext();
   const submit= async()=>{
     if(!form.email || !form.password){
@@ -16,6 +16,7 @@ const signIn = () => {
     }
     setloading(true)
     try{
+       {/*sending data to appwrite to authenticate if the user exist or not*/}
       await SignIn(form.email,form.password)
       const result= await getCurrentUser()
       setUser(result);
@@ -65,7 +66,7 @@ const signIn = () => {
       />
       <View className="justify-center pt-5 flex-row gap-2">
         <Text className="text-lg text-gray-100 font-pregular">Don't have an account?</Text>
-      <Link href="/signUp_vendor" className='text-lg font-semibold text-secondary'>Sign Up</Link>
+      <Link href="/signUp" className='text-lg font-semibold text-secondary'>Sign Up</Link>
       </View>
       </View>
     </ScrollView>

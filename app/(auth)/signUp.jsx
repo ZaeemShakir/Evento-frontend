@@ -21,7 +21,7 @@ const signUp = () => {
     }
     setloading(true)
     try{
-      const result=await createUser(form.email,form.password,form.username,form.usertype)
+    const result=await createUser(form.email,form.password,form.username,form.usertype)
     setUser(result)
     setIsLogged(true)
     router.replace('/home')
@@ -46,7 +46,6 @@ const signUp = () => {
       value={form.username}
       handleChange={(e)=>setForm({...form,username:e})}
       otherStyles="mt-10"
-  
       />
       <FormField
       title="Email"
@@ -62,7 +61,6 @@ const signUp = () => {
       otherStyles="mt-7"
       keyboardType="password"
       />
-
       <CustomButton
       title="Sign Up"
       handlePress={submit}

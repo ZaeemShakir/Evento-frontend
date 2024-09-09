@@ -4,7 +4,6 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import { getMessages } from "../lib/appwrite";
 import useAppwrite from "../lib/useAppwrite";
 import { router, useFocusEffect } from "expo-router";
-
 const ChatList = ({ items }) => {
   const { user } = useGlobalContext();
   const { data, refetch } = useAppwrite(() => getMessages(items.chat_id));
@@ -14,7 +13,6 @@ const ChatList = ({ items }) => {
       refetch();
     }, [])
   );
-
   return (
     <View className="flex justify-center items-center">
     <TouchableOpacity

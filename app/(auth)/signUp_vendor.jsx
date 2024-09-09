@@ -33,7 +33,6 @@ const signUp_vendor = () => {
       }
       
     }
-  
     const [loading, setloading] = useState(false)
     return (
      <SafeAreaView className="bg-primary h-full">
@@ -46,7 +45,6 @@ const signUp_vendor = () => {
         value={form.username}
         handleChange={(e)=>setForm({...form,username:e})}
         otherStyles="mt-10"
-    
         />
         <FormField
         title="Email"
@@ -62,7 +60,6 @@ const signUp_vendor = () => {
         otherStyles="mt-7"
         keyboardType="password"
         />
-  
         <CustomButton
         title="Sign Up"
         handlePress={submit}
@@ -78,6 +75,4 @@ const signUp_vendor = () => {
      </SafeAreaView>
     )
   }
-  
-
 export default signUp_vendor

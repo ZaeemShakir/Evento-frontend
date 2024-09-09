@@ -6,7 +6,9 @@ import CustomButton from "../components/CustomButton.jsx"
 import {Redirect,router} from "expo-router"
 import {useGlobalContext} from "../context/GlobalProvider.js"
 export default function App() {
+  {/*getting the global value stored in useContext*/}
   const { loading, isLogged,user } = useGlobalContext();
+  {/*routing to screens using usertype*/}
   if (!loading && isLogged && user?.usertype==="customer") return <Redirect href="/home" />;
   if (!loading && isLogged && user?.usertype==="vendor") return <Redirect href="/vendor_home" />;
   return (
@@ -37,10 +39,12 @@ export default function App() {
           <Text className="text-sm font-pregular text-gray-100 text-center mt-7">
             Making event planning easier
           </Text>
+          {/*Custom component takes to customer login*/}
       <CustomButton title="Continue as customers"
       handlePress={()=>router.push('/signIn')}
       containerStyles="w-full mt-7 min-h-[62px]"
       />
+   {/*Custom component takes to vendor login*/}
         <CustomButton title="Continue as Vendor"
       handlePress={()=>router.push('/signIn_vendor')}
       containerStyles="w-full mt-7 min-h-[62px]"

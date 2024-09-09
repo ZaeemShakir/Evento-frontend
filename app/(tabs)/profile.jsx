@@ -20,7 +20,6 @@ const profile = () => {
     setIsLogged(false);
     router.replace("/");
   };
-
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { data, refetch } = useAppwrite(() => getCustomerPosts(user.$id));
   useEffect(() => {
@@ -35,7 +34,7 @@ const profile = () => {
       refetch(); 
     }, [])
   );
- 
+   {/*if the post card belong to the customer profile screen it is going to have a x on in to delete the post*/}
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
@@ -63,7 +62,6 @@ const profile = () => {
                 resizeMode="cover"
               />
             </View>
-
             <InfoBox
               title={user?.username}
               containerStyles="mt-5"
@@ -80,8 +78,8 @@ const profile = () => {
         )}
         ListEmptyComponent={() => (
           <EmptyState
-            title="No Videos Found"
-            subtitle="No videos found for this search query"
+            title="No post Found"
+            subtitle="No post"
           />
         )}
       />
