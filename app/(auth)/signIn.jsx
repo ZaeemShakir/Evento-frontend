@@ -57,7 +57,6 @@ const signIn = () => {
       otherStyles="mt-7"
       keyboardType="password"
       />
-
       <CustomButton
       title="Sign In"
       handlePress={submit}
@@ -73,5 +72,4 @@ const signIn = () => {
    </SafeAreaView>
   )
 }
-
 export default signIn

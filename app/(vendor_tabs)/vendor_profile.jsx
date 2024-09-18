@@ -11,21 +11,18 @@ import Card from "../../components/Card";
 import ImgCard from "../../components/ImgCard";
 import EmptyState from "../../components/EmptyState";
 import ReviewCard from "../../components/ReviewCard";
-
 const VendorProfile = () => {
   const [selectedTab, setSelectedTab] = useState("Photos");
   const { user, setUser, setIsLogged } = useGlobalContext();
   const { data } = useAppwrite(() => getUserPosts(user.$id));
   const { data: image } = useAppwrite(() => getUserImages(user.$id));
   const { data: reviews } = useAppwrite(() => getUserReview(user.$id)); 
-
   const logout = async () => {
     await SignOut();
     setUser(null);
     setIsLogged(false);
     router.replace("/");
   };
-
   let filteredData;
   if (selectedTab === "Photos") {
     filteredData = image;
@@ -34,7 +31,6 @@ const VendorProfile = () => {
   } else if (selectedTab === "Review") {
     filteredData = reviews;
   }
-
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
@@ -46,7 +42,6 @@ const VendorProfile = () => {
           ) : selectedTab === "Photos" ? (
             <ImgCard post={item} />
           ) : (
-            
             <ReviewCard post={item}/>
           )
         }
@@ -69,7 +64,6 @@ const VendorProfile = () => {
                 resizeMode="cover"
               />
             </View>
-
             <InfoBox
               title={user?.username}
               containerStyles="mt-5"
@@ -88,7 +82,6 @@ const VendorProfile = () => {
                 titleStyles="text-xl"
               />
             </View>
-
             <View className="mt-10 flex-row w-full justify-around">
               <TouchableOpacity onPress={() => setSelectedTab("Photos")}>
                 <Text

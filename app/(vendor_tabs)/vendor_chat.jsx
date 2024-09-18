@@ -8,17 +8,13 @@ import ChatList from '../../components/ChatList';
 import useAppwrite from '../../lib/useAppwrite';
 
 const vendor_chat = () => {
-  
   const {user}=useGlobalContext()
-  
   const { data, refetch } = useAppwrite(() => getChats(user.$id));
-
   useFocusEffect(
     useCallback(() => {
       refetch(); 
     }, [])
   );
-
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList

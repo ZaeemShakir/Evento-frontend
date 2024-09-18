@@ -15,22 +15,18 @@ const PostCard = ({ post,btn,btnFn,userid}) => {
     return isApplied ? "Applied" : "Apply";
   }
   const btnTitle=loop()
-
-
-
+  //Shows the list of vendors
   const handleVendorListNavigation = () => {
     const vendorDetails = post.vendor_appliation?.map(app => ({
       accountId: app.$id,
       username: app.username, 
       avatar: app.avatar,    
   })) || [];
-  
   router.push({
     pathname: '/screens/vendor_list',
     params: { vendors: JSON.stringify(vendorDetails) }, 
   });
   }
-
   return (
     <View className="flex-col items-center px-4 py-6 mb-14 border border-secondary-100 rounded-xl w-[90%] mx-auto">
       <View className="flex-row gap-3 items-start w-full">

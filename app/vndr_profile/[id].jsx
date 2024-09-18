@@ -19,6 +19,7 @@ const vndr_profile = () => {
     const {data:image} =useAppwrite(() => getUserImages(id));
     const {data:user}=useAppwrite(() => getUser(id));
   const { data: reviews } = useAppwrite(() => getUserReview(id)); 
+  {/*filters that data according to the tab that is in focus*/}
   let filteredData;
   if (selectedTab === "Photos") {
     filteredData = image;
@@ -40,7 +41,6 @@ const startChat=async()=>{
     } else if (typeof result === 'object' && result !== null) {
       res = result;
     }
-   
     router.push({
       pathname: '/screens/messages',
       params: {
@@ -73,7 +73,6 @@ const ReviewPage=()=>{
     }
   })
 }
-
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
@@ -90,7 +89,6 @@ const ReviewPage=()=>{
         }
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
-            
             <View className="w-16 h-16 border border-secondary rounded-lg justify-center items-end">
               <Image
                 source={{ uri: user?.avatar }}
@@ -98,14 +96,12 @@ const ReviewPage=()=>{
                 resizeMode="cover"
               />
             </View>
-
             <InfoBox
               title={user?.username}
               containerStyles="mt-5"
               titleStyles="text-lg"
             />
             <View className="mt-5 flex-row">
-           
               <InfoBox
                 title={reviews?.length || 0}
                 subtitle={"Reviews"}
@@ -136,7 +132,6 @@ const ReviewPage=()=>{
               </TouchableOpacity>
               </View>
             </View>
-
             <View className="mt-10 flex-row w-full justify-around">
               <TouchableOpacity onPress={() => setSelectedTab("Photos")}>
                 <Text

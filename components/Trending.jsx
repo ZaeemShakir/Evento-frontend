@@ -8,8 +8,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
-import { icons } from "../constants";
-import {Video,ResizeMode} from 'expo-av'
 import { router } from "expo-router";
 const zoomIn = {
   0: {

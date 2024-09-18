@@ -16,7 +16,6 @@ const SearchInput = ({intialQuery}) => {
       placeholderTextColor="#CDCDE0"
       onChangeText={(e) => setQuery(e)}
     />
-
     <TouchableOpacity
       onPress={() => {
         if (query === "")
@@ -32,10 +31,7 @@ const SearchInput = ({intialQuery}) => {
         if (pathname.startsWith("/search_vendor")) router.setParams({ query });
         else router.push(`/search_vendor/${query}`);
       }
-       
-    
     }}
-
     >
       <Image source={icons.search} className="w-5 h-5" resizeMode="contain" />
     </TouchableOpacity>

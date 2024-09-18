@@ -8,7 +8,6 @@ import {
   } from "react-native";
   import React, { useEffect, useState } from "react";
   import { SafeAreaView } from "react-native-safe-area-context";
-  import { images } from "../../constants";
   import SearchInput from "../../components/SearchInput";
   import EmptyState from "../../components/EmptyState";
   import { applyJob, getAllCustomPosts, getAllPosts } from "../../lib/appwrite";
@@ -16,7 +15,6 @@ import {
   import { useGlobalContext } from "../../context/GlobalProvider";
 import PostCard from "../../components/PostCard";
 const vendor_home = () => {
-  
     const {data, refetch} =useAppwrite(getAllCustomPosts)
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = async () => {
@@ -24,10 +22,8 @@ const vendor_home = () => {
       await refetch();
       setRefreshing(false);
     };
-    
     const {user}=useGlobalContext()
     const jobApply=async(id,userid)=>{
-    
       try{
         await applyJob(id,userid)
         Alert.alert("Success","You have applied for the job")
@@ -37,7 +33,6 @@ const vendor_home = () => {
           Alert.alert('Error',error)
         }
         }
-     
     return (
       <SafeAreaView className="bg-primary h-full">
         <FlatList

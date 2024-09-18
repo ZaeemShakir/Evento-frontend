@@ -16,7 +16,6 @@ import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import { createImage, createVideo } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
-
 const vendor_upload = () => {
   const [selectedTab, setSelectedTab] = useState("video");
   const { user } = useGlobalContext();
@@ -37,11 +36,13 @@ const vendor_upload = () => {
     prompt3: "",
   });
   const submit = async () => {
+    //checking if everything is filled
     if (!form.prompt || !form.title || !form.thumbnail || !form.video) {
       return Alert.alert("Please fill in all the required data");
     }
     setUploading(true);
     try {
+      //sending the data to the backend
       await createVideo({
         ...form,
         userId: user.$id,
@@ -62,6 +63,7 @@ const vendor_upload = () => {
       setUploading(false);
     }
   };
+  //submitting image
   const submitImg = async () => {
     if (
       !imgForm.prompt1 ||
@@ -70,7 +72,6 @@ const vendor_upload = () => {
       !imgForm.prompt2 ||
       !imgForm.prompt3
     ) {
-      
       return Alert.alert("Please fill in all the required data");
     }
     setUploading(true);
@@ -94,9 +95,11 @@ const vendor_upload = () => {
       setUploading(false);
     }
   };
-
+  //gallery opener
   const openPicker = async (selectType, selectedTab) => {
+    //opens image or video library depending on the use choice
     if (selectedTab === "video") {
+      //opening library setting the video quality and aspect atio
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes:
           selectType === "image"

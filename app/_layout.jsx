@@ -1,4 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native'
 import {Stack,Slot, SplashScreen} from 'expo-router'
 import {useFonts} from 'expo-font'
 import { useEffect } from 'react'
@@ -21,7 +20,6 @@ if(error) throw(error)
   if(fontsLoaded) SplashScreen.hideAsync()
   },[fontsLoaded,error])
 if(!fontsLoaded && !error) return null
-
   return (
     <GlobalProvider>
     <Stack>

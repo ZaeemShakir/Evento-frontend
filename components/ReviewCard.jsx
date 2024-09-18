@@ -1,8 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import CustomButton from "./CustomButton";
-import { router } from "expo-router";
-
 const ReviewCard = ({ post }) => {
   console.log(post);
 
