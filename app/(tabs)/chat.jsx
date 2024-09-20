@@ -14,7 +14,7 @@ const chat = () => {
     useCallback(() => {
       const interval = setInterval(() => {
         refetch();
-      }, 2000); // 2000ms = 2 second
+      }, 1000); // 2000ms = 2 second
   
       // Cleanup interval when the screen is unfocused
       return () => clearInterval(interval);
