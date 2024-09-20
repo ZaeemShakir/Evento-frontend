@@ -21,12 +21,19 @@ const Messages = () => {
   const [form, setForm] = useState();
   useFocusEffect(
     useCallback(() => {
-      refetch();
+      // Set up an interval to refetch every two second
+      const interval = setInterval(() => {
+        refetch();
+      }, 2000); // 2000ms = 2 second
+  
+      // Cleanup interval when the screen is unfocused
+      return () => clearInterval(interval);
     }, [])
   );
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
+    //refetching the messages
     await refetch();
     setRefreshing(false);
   };
