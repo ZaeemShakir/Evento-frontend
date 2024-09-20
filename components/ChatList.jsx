@@ -10,7 +10,11 @@ const ChatList = ({ items }) => {
   const lastMessage = data?.length > 0 ? data[data.length - 1] : null;
   useFocusEffect(
     useCallback(() => {
-      refetch();
+      const interval = setInterval(() => {
+        refetch();
+      }, 1000); // 2000ms = 2 second
+      // Cleanup interval when the screen is unfocused
+      return () => clearInterval(interval); 
     }, [])
   );
   return (

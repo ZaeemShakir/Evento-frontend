@@ -15,7 +15,6 @@ const vendor_chat = () => {
       const interval = setInterval(() => {
         refetch();
       }, 1000); // 2000ms = 2 second
-  
       // Cleanup interval when the screen is unfocused
       return () => clearInterval(interval); 
     }, [])
