@@ -5,11 +5,11 @@ import {images} from "../../constants"
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import {Link, router} from "expo-router"
-import { getCurrentUser, SignIn } from '../../lib/appwrite'
+import { getCurrentUser, SignIn, SignOut } from '../../lib/appwrite'
 import { useGlobalContext } from "../../context/GlobalProvider";
 const signIn = () => {
   {/*getting the setter for islogged and setting the user id and user type*/}
-  const { setUser, setIsLogged } = useGlobalContext();
+  const { setUser, setIsLogged,user } = useGlobalContext();
   const submit= async()=>{
     if(!form.email || !form.password){
       Alert.alert('Error','Please fill all the fields')
@@ -19,9 +19,15 @@ const signIn = () => {
        {/*sending data to appwrite to authenticate if the user exist or not*/}
       await SignIn(form.email,form.password)
       const result= await getCurrentUser()
+      if(result.usertype==='customer'){
       setUser(result);
       setIsLogged(true);
     router.replace('/home')
+      }
+      else{
+        await SignOut()
+        Alert.alert('Invalid user email or password')
+      }
     }
     catch(error){
       Alert.alert('Error',error.message)

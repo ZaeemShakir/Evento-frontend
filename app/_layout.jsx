@@ -37,6 +37,5 @@ if(!fontsLoaded && !error) return null
     </GlobalProvider>
   )
 }
-
 export default _layout
 

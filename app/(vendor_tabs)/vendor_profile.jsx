@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getUserImages, getUserPosts, getUserReview, getUserReviews, SignOut } from "../../lib/appwrite"; // Assuming getUserReviews is the API function
@@ -6,7 +6,7 @@ import useAppwrite from "../../lib/useAppwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import Card from "../../components/Card";
 import ImgCard from "../../components/ImgCard";
 import EmptyState from "../../components/EmptyState";
@@ -14,9 +14,9 @@ import ReviewCard from "../../components/ReviewCard";
 const VendorProfile = () => {
   const [selectedTab, setSelectedTab] = useState("Photos");
   const { user, setUser, setIsLogged } = useGlobalContext();
-  const { data } = useAppwrite(() => getUserPosts(user.$id));
-  const { data: image } = useAppwrite(() => getUserImages(user.$id));
-  const { data: reviews } = useAppwrite(() => getUserReview(user.$id)); 
+  const { data,refetch } = useAppwrite(() => getUserPosts(user.$id));
+  const { data: image,refetch:refetchImage } = useAppwrite(() => getUserImages(user.$id));
+  const { data: reviews,refetch:refetchReview } = useAppwrite(() => getUserReview(user.$id)); 
   const logout = async () => {
     await SignOut();
     setUser(null);
@@ -31,6 +31,18 @@ const VendorProfile = () => {
   } else if (selectedTab === "Review") {
     filteredData = reviews;
   }
+  useFocusEffect(
+    useCallback(() => {
+      if (selectedTab === "Photos") {
+        refetchImage()
+      } else if (selectedTab === "Videos") {
+        refetch(); 
+      } else if (selectedTab === "Review") {
+        refetchReview()
+      }
+      
+    }, [filteredData])
+  );
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
