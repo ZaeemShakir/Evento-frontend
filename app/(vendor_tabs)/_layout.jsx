@@ -75,7 +75,7 @@ const tabLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.profile}
+                icon={icons.chat}
                 color={color}
                 name="Chat"
                 focused={focused}

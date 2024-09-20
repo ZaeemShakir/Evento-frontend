@@ -75,7 +75,7 @@ const Create = () => {
           inputBoxStyle="h-40 items-baseline"
         />
         <TouchableOpacity onPress={() => setShowDatePicker(true)} className="mt-10">
-          <Text className="text-white text-lg">Select Event Date and Time</Text>
+          <Text className="text-white text-lg">Select Event Date </Text>
           <Text className="text-gray-300 text-base mt-2">
             {form.event_date.toLocaleString()}
           </Text>
@@ -88,6 +88,7 @@ const Create = () => {
            is24Hour={false} 
            display="default" 
            onChange={onChange}
+          
          />
         )} 
         <FormField
